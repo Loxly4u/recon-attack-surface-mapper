@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recon-attack-surface-mapper"
+version = "0.1.0"
+description = "AI-assisted offline recon & attack surface mapper for pre-collected synthetic reconnaissance data"
+requires-python = ">=3.9"
+dependencies = [
+    "click==8.1.7",
+]
+
+[project.scripts]
+recon-mapper = "recon_mapper.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

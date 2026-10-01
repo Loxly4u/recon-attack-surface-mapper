@@ -1,0 +1,225 @@
+{
+  "organization": "Northwind Retail Group (fictional)",
+  "generated_at": "2026-09-15T00:00:00Z",
+  "source_note": "Synthetic sample recon export resembling Shodan/Censys/crt.sh/subdomain-enum output. No real organization, hosts, or IPs. For offline demo/testing only.",
+  "assets": [
+    {
+      "asset_id": "asset-001",
+      "hostname": "www.northwindretail.example",
+      "ip_addresses": ["203.0.113.10"],
+      "source": "censys",
+      "first_seen": "2024-01-10",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.25.3"},
+        {"port": 80, "protocol": "tcp", "service_name": "http", "product": "nginx", "version": "1.25.3"}
+      ],
+      "tech_stack": ["nginx", "React", "Cloudflare"],
+      "tls": {"enabled": true, "issuer": "Let's Encrypt", "valid_to": "2026-12-01", "expired": false, "self_signed": false},
+      "tags": ["production", "public-marketing-site"],
+      "notes": "Main corporate marketing website."
+    },
+    {
+      "asset_id": "asset-002",
+      "hostname": "rdp-gateway.northwindretail.example",
+      "ip_addresses": ["203.0.113.22"],
+      "source": "shodan",
+      "first_seen": "2023-11-02",
+      "services": [
+        {"port": 3389, "protocol": "tcp", "service_name": "ms-wbt-server", "product": "Microsoft Terminal Services", "version": "10.0", "banner": "RDP Protocol"}
+      ],
+      "tech_stack": ["Windows Server 2016"],
+      "tls": {"enabled": false},
+      "tags": ["forgotten", "legacy-infra"],
+      "notes": "Appears to be a forgotten jump box from a prior office migration. Not in current CMDB."
+    },
+    {
+      "asset_id": "asset-003",
+      "hostname": "staging.northwindretail.example",
+      "ip_addresses": ["203.0.113.31"],
+      "source": "subdomain-enum",
+      "first_seen": "2024-03-18",
+      "services": [
+        {"port": 80, "protocol": "tcp", "service_name": "http", "product": "Apache", "version": "2.2.15", "banner": "Apache/2.2.15 (CentOS)"},
+        {"port": 22, "protocol": "tcp", "service_name": "ssh", "product": "OpenSSH", "version": "5.3"}
+      ],
+      "tech_stack": ["Apache", "PHP 5.4", "WordPress 4.1"],
+      "tls": {"enabled": false},
+      "tags": ["staging", "unpatched"],
+      "notes": "Staging clone of marketing site, same DB credentials as prod per internal wiki (unverified)."
+    },
+    {
+      "asset_id": "asset-004",
+      "hostname": "admin.northwindretail.example",
+      "ip_addresses": ["203.0.113.40"],
+      "source": "subdomain-enum",
+      "first_seen": "2024-02-01",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.18.0"},
+        {"port": 8080, "protocol": "tcp", "service_name": "http-proxy", "product": "Tomcat", "version": "8.5.1", "banner": "Apache Tomcat/8.5.1 - admin console"}
+      ],
+      "tech_stack": ["Tomcat", "Java", "Internal Admin Portal"],
+      "tls": {"enabled": true, "issuer": "Internal CA", "valid_to": "2025-06-01", "expired": true, "self_signed": true},
+      "tags": ["admin-panel", "internal-tool-exposed"],
+      "notes": "Internal order-management admin console, appears reachable from the public internet."
+    },
+    {
+      "asset_id": "asset-005",
+      "hostname": "vpn.northwindretail.example",
+      "ip_addresses": ["203.0.113.55"],
+      "source": "shodan",
+      "first_seen": "2023-08-14",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "OpenVPN", "version": "2.5.1"},
+        {"port": 1194, "protocol": "udp", "service_name": "openvpn"}
+      ],
+      "tech_stack": ["OpenVPN"],
+      "tls": {"enabled": true, "issuer": "DigiCert", "valid_to": "2027-01-01", "expired": false, "self_signed": false},
+      "tags": ["vpn", "corporate-access"],
+      "notes": "Primary corporate VPN concentrator. Patched and current per last audit."
+    },
+    {
+      "asset_id": "asset-006",
+      "hostname": "api.northwindretail.example",
+      "ip_addresses": ["203.0.113.60"],
+      "source": "censys",
+      "first_seen": "2024-05-01",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.25.3"}
+      ],
+      "tech_stack": ["nginx", "Node.js", "Express"],
+      "tls": {"enabled": true, "issuer": "Let's Encrypt", "valid_to": "2026-11-20", "expired": false, "self_signed": false},
+      "tags": ["production", "public-api"],
+      "notes": "Public mobile app API gateway, rate-limited."
+    },
+    {
+      "asset_id": "asset-007",
+      "hostname": "ftp.northwindretail.example",
+      "ip_addresses": ["203.0.113.71"],
+      "source": "shodan",
+      "first_seen": "2023-05-09",
+      "services": [
+        {"port": 21, "protocol": "tcp", "service_name": "ftp", "product": "vsftpd", "version": "2.3.4", "banner": "vsftpd 2.3.4 ready"}
+      ],
+      "tech_stack": ["vsftpd"],
+      "tls": {"enabled": false},
+      "tags": ["legacy", "vendor-upload"],
+      "notes": "Legacy vendor file-upload FTP server, vsftpd 2.3.4 has a known backdoor vulnerability in its history."
+    },
+    {
+      "asset_id": "asset-008",
+      "hostname": "assets-cdn.northwindretail.example",
+      "ip_addresses": ["203.0.113.80"],
+      "source": "censys",
+      "first_seen": "2024-06-11",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "CloudFront", "version": "n/a"}
+      ],
+      "tech_stack": ["AWS CloudFront", "S3"],
+      "tls": {"enabled": true, "issuer": "Amazon", "valid_to": "2027-03-01", "expired": false, "self_signed": false},
+      "tags": ["production", "static-assets"],
+      "notes": "Static asset CDN for product images. Standard config, no issues noted."
+    },
+    {
+      "asset_id": "asset-009",
+      "hostname": "backups.northwindretail.example",
+      "ip_addresses": ["203.0.113.90"],
+      "source": "subdomain-enum",
+      "first_seen": "2023-09-27",
+      "services": [
+        {"port": 445, "protocol": "tcp", "service_name": "microsoft-ds", "product": "Samba", "version": "3.6.3"},
+        {"port": 139, "protocol": "tcp", "service_name": "netbios-ssn"}
+      ],
+      "tech_stack": ["Samba", "Windows fileshare"],
+      "tls": {"enabled": false},
+      "tags": ["backup", "forgotten"],
+      "notes": "Backup fileshare, discovered via subdomain enumeration; SMB directly reachable from internet, likely misconfigured firewall rule."
+    },
+    {
+      "asset_id": "asset-010",
+      "hostname": "reports-bucket.northwindretail.example",
+      "ip_addresses": [],
+      "source": "crt.sh",
+      "first_seen": "2024-04-02",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "AWS S3", "version": "n/a"}
+      ],
+      "tech_stack": ["AWS S3"],
+      "tls": {"enabled": true, "issuer": "Amazon", "valid_to": "2026-08-15", "expired": false, "self_signed": false},
+      "tags": ["public-bucket", "s3-misconfig", "sensitive-data-risk"],
+      "notes": "S3 bucket hosting quarterly sales reports found with public-read ACL during certificate transparency log review (sample finding)."
+    },
+    {
+      "asset_id": "asset-011",
+      "hostname": "mail.northwindretail.example",
+      "ip_addresses": ["203.0.113.100"],
+      "source": "shodan",
+      "first_seen": "2023-12-05",
+      "services": [
+        {"port": 25, "protocol": "tcp", "service_name": "smtp", "product": "Postfix", "version": "3.5.6"},
+        {"port": 143, "protocol": "tcp", "service_name": "imap", "product": "Dovecot", "version": "2.3.13"}
+      ],
+      "tech_stack": ["Postfix", "Dovecot"],
+      "tls": {"enabled": true, "issuer": "Let's Encrypt", "valid_to": "2026-10-30", "expired": false, "self_signed": false},
+      "tags": ["production", "mail"],
+      "notes": "Corporate mail relay. Current patch levels per last audit."
+    },
+    {
+      "asset_id": "asset-012",
+      "hostname": "jenkins.northwindretail.example",
+      "ip_addresses": ["203.0.113.110"],
+      "source": "subdomain-enum",
+      "first_seen": "2024-01-29",
+      "services": [
+        {"port": 8080, "protocol": "tcp", "service_name": "http", "product": "Jenkins", "version": "2.289.1"},
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.22.1"}
+      ],
+      "tech_stack": ["Jenkins", "CI/CD"],
+      "tls": {"enabled": true, "issuer": "Internal CA", "valid_to": "2024-12-01", "expired": true, "self_signed": true},
+      "tags": ["ci-cd", "internal-tool-exposed"],
+      "notes": "CI/CD build server reachable from the internet with an expired self-signed certificate."
+    },
+    {
+      "asset_id": "asset-013",
+      "hostname": "status.northwindretail.example",
+      "ip_addresses": ["203.0.113.120"],
+      "source": "censys",
+      "first_seen": "2024-07-19",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.25.3"}
+      ],
+      "tech_stack": ["nginx", "StatusPage-style static site"],
+      "tls": {"enabled": true, "issuer": "Let's Encrypt", "valid_to": "2026-09-01", "expired": false, "self_signed": false},
+      "tags": ["production", "public-status-page"],
+      "notes": "Public uptime/status page, no sensitive data, routine finding."
+    },
+    {
+      "asset_id": "asset-014",
+      "hostname": "telnet-switch.northwindretail.example",
+      "ip_addresses": ["203.0.113.130"],
+      "source": "shodan",
+      "first_seen": "2023-02-11",
+      "services": [
+        {"port": 23, "protocol": "tcp", "service_name": "telnet", "product": "Cisco IOS", "version": "12.2", "banner": "User Access Verification"}
+      ],
+      "tech_stack": ["Cisco IOS"],
+      "tls": {"enabled": false},
+      "tags": ["network-infra", "legacy"],
+      "notes": "Network switch management interface with Telnet exposed to the internet; likely a misconfigured ACL on the WAN edge."
+    },
+    {
+      "asset_id": "asset-015",
+      "hostname": "support.northwindretail.example",
+      "ip_addresses": ["203.0.113.140"],
+      "source": "censys",
+      "first_seen": "2024-08-22",
+      "services": [
+        {"port": 443, "protocol": "tcp", "service_name": "https", "product": "nginx", "version": "1.25.3"},
+        {"port": 80, "protocol": "tcp", "service_name": "http", "product": "nginx", "version": "1.25.3"}
+      ],
+      "tech_stack": ["nginx", "Zendesk-style helpdesk"],
+      "tls": {"enabled": true, "issuer": "Let's Encrypt", "valid_to": "2026-10-10", "expired": false, "self_signed": false},
+      "tags": ["production", "customer-support"],
+      "notes": "Customer support portal, current patch levels, no issues noted."
+    }
+  ]
+}
